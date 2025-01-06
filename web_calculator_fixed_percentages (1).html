@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מחשבון לחלוקת מטבעות - אחוזים מדויקים</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 80%;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 8px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>מחשבון לחלוקת מטבעות - אחוזים מדויקים</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Risk$</th>
+                <th>Stop</th>
+                <th>Total Quantity</th>
+                <th>מינימלי (30%)</th>
+                <th>אידיאלי (60%)</th>
+                <th>מקסימלי (10%)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="number" id="risk" placeholder="Risk$"></td>
+                <td><input type="number" id="stop" placeholder="Stop"></td>
+                <td id="total">-</td>
+                <td id="min">-</td>
+                <td id="ideal">-</td>
+                <td id="max">-</td>
+            </tr>
+        </tbody>
+    </table>
+    <button id="calculateBtn">חשב</button>
+    <script>
+        document.getElementById("calculateBtn").addEventListener("click", function() {
+            const risk = parseFloat(document.getElementById("risk").value);
+            const stop = parseFloat(document.getElementById("stop").value);
+
+            if (!risk || !stop || risk <= 0 || stop <= 0) {
+                alert("נא להזין ערכים חוקיים עבור Risk$ ו-Stop");
+                return;
+            }
+
+            // Calculate Total Quantity
+            const total = (risk / stop).toFixed(2);
+            document.getElementById("total").textContent = total;
+
+            // Calculate Min, Ideal, Max distributions with correct percentages
+            document.getElementById("min").textContent = (total * 0.3).toFixed(2);
+            document.getElementById("ideal").textContent = (total * 0.6).toFixed(2);
+            document.getElementById("max").textContent = (total * 0.1).toFixed(2);
+        });
+    </script>
+</body>
+</html>
